@@ -31,6 +31,8 @@
 <script src="../assets/js/sparkline-chart.js"></script>
 <script src="../assets/js/zabuto_calendar.js"></script>
 
+<script src="../custom/bower_components/datatables.net/js/jquery.dataTables.js"></script>
+<script src="../custom/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <!--<script type="text/javascript">
     $(document).ready(function () {
     var unique_id = $.gritter.add({

@@ -44,12 +44,30 @@
                
             </li>
             <li class="sub-menu">
+                <a href="letters.php" >
+                    <i class="fa fa-envelope-o"></i>
+                    <span>Offer Letters</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="payments.php" >
+                    <i class="fa fa-folder-open"></i>
+                    <span>Repayments</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="dashboard.php" >
+                    <i class="fa fa-book"></i>
+                    <span>All Reports</span>
+                </a>
+            </li>
+            <li class="sub-menu">
                 <a href="javascript:;" >
                     <i class="fa fa-bell"></i>
                     <span>Notifications</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="">Create new</a></li>
+                    <li><a  href="">New *</a></li>
                     <li><a  href="">View all</a></li>
 
                 </ul>

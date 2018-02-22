@@ -9,8 +9,8 @@ if (isset($_SESSION['logname']) && ($_SESSION['rank'])) {
         case 2:
             header('location:../user/index.php');//redirect to  page
             break;
-        case 1:
-            header('location:../admin/index.php');//redirect to  page
+        case 3:
+            header('location:../credits/index.php');//redirect to  page
             break;
 
     }
@@ -33,7 +33,7 @@ $username=$_SESSION['logname'];
 <?php include 'pre_cont.php';?>
     <!-- CONTENT -->
     <h5>All applications approved by credits officer</h5>
-    <table class="table table-striped table-responsive table-bordered" style="font-family: AppleMyungjo">
+    <table class="table table-striped table-responsive" style="font-family: AppleMyungjo">
         <?php
         $sql = "SELECT * FROM Loan WHERE Loan_Status='Processing' ORDER BY Loan_id";
         $rs_result = mysqli_query($con, $sql);
@@ -42,12 +42,14 @@ $username=$_SESSION['logname'];
         <thead class="alert-info">
         <tr>
             <th>ID</th>
-            <th>Loan Code</th>
-            <th>Loan Type</th>
-            <th>Guarantor Contact</th>
-            <th>Amount</th>
-            <th>Loan Status</th>
-            <th>Decline</th>
+            <th>LOAN CODE</th>
+            <th>LOAN TYPE</th>
+            <th>GUARANTOR CONTACT</th>
+            <th>AMOUNT</th>
+            <th>LOAN STATUS</th>
+            <th>APPROVE</th>
+            <th>DECLINE</th>
+            <th>PREVIEW</th>
 
         </tr>
         </thead>
@@ -62,7 +64,9 @@ $username=$_SESSION['logname'];
                 <td><?php echo $row["Loan_guarantor_mobile"]; ?></td>
                 <td><?php echo $row["Loan_amount"]; ?></td>
                 <td><?php echo $row["Loan_Status"]; ?></td>
+                <td><a href="del.php?approve='<?php echo $row["Loan_code"]; ?>'" class="btn-sm btn-success">Approve</a></td>
                 <td><a href="del.php?decline='<?php echo $row["Loan_code"]; ?>'" class="btn-danger btn-sm">Decline</a></td>
+                <td><a target="_blank" href="print.php?print='<?php echo $row["Loan_code"]; ?>'" class="btn-info btn-sm">Preview</a></td>
 
             </tr>
             <?php
@@ -72,12 +76,14 @@ $username=$_SESSION['logname'];
         <tfoot>
         <tr class="alert-warning">
             <th>ID</th>
-            <th>Loan Code</th>
-            <th>Loan Type</th>
-            <th>Guarantor Contact</th>
-            <th>Amount</th>
-            <th>Loan Status</th>
-            <th>Decline</th>
+            <th>LOAN CODE</th>
+            <th>LOAN TYPE</th>
+            <th>GUARANTOR CONTACT</th>
+            <th>AMOUNT</th>
+            <th>LOAN STATUS</th>
+            <th>APPROVE</th>
+            <th>DECLINE</th>
+            <th>PREVIEW</th>
 
         </tr>
     </table>

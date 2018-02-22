@@ -9,8 +9,8 @@ if (isset($_SESSION['logname']) && ($_SESSION['rank'])) {
         case 2:
             header('location:../user/index.php');//redirect to  page
             break;
-        case 1:
-            header('location:../admin/index.php');//redirect to  page
+        case 3:
+            header('location:../credits/index.php');//redirect to  page
             break;
 
     }
@@ -26,29 +26,47 @@ else
 include '../connection/db.php';
 $username=$_SESSION['logname'];
 //
+//Send message//
+if (isset($_GET['success'])){
+
+    $msg = "<div class='text-info'>
+    <strong class='glyphicon glyphicon-info-sign'></strong>&nbsp;Congratulations,Offer letter Sent.
+    </div>";
+}elseif (isset($_GET['error'])){
+
+    $msg = "<div class='text-danger'>
+    <strong class='glyphicon glyphicon-info-sign'></strong>&nbsp;Sorry ,double sending not allowed.
+    </div>";
+}
 ?>
 
 <?php include 'header.php';?>
 <?php include 'sidebar.php';?>
 <?php include 'pre_cont.php';?>
     <!-- CONTENT -->
+<?php
+if (isset($msg)) {
+    echo $msg;
+}
+?>
     <h5>All approved applications</h5>
-    <table class="table table-striped table-responsive table-bordered" style="font-family: AppleMyungjo">
+    <table class="table table-striped table-responsive" style="font-family: AppleMyungjo">
         <?php
-        $sql = "SELECT * FROM Loan WHERE Loan_Status='Approved' ORDER BY Loan_id";
+        $sql = "SELECT * FROM Loan WHERE Loan_Status='Approved' AND Loan_code NOT IN(SELECT Offer_Loan_Code FROM Neds_Offer) ORDER BY Loan_id";
         $rs_result = mysqli_query($con, $sql);
         ?>
 
         <thead class="alert-info">
         <tr>
-            <th>Loan Code</th>
-            <th>Loan Type</th>
-            <th>Email</th>
-            <th>Amount</th>
-            <th>Application Date</th>
-            <th>Approval Date</th>
-            <th>Send Form</th>
-
+            <th>LOAN CODE</th>
+            <th width="15%">LOAN TYPE</th>
+            <th>EMAIL</th>
+            <th>AMOUNT</th>
+            <th width="15%">APPLIED ON</th>
+            <th width="15%">APPROVED ON</th>
+            <th>FINISH</th>
+            <th>PREVIEW</th>
+            <th>TRASH</th>
         </tr>
         </thead>
         <tbody>
@@ -62,7 +80,9 @@ $username=$_SESSION['logname'];
                 <td><?php echo $row["Loan_amount"]; ?></td>
                 <td><?php echo $row["Loan_appl_time"]; ?></td>
                 <td><?php echo $row["Loan_appr_time"]; ?></td>
-                <td><a href="offer.php?approve='<?php echo $row["Loan_code"]; ?>'" class="btn-sm btn-success">Send Offer</a></td>
+                <td><a href="offer.php?approve='<?php echo $row["Loan_code"]; ?>'" class="fa fa-envelope-o"> Fin</a></td>
+                <td><a target="_blank" href="print.php?print='<?php echo $row["Loan_code"]; ?>'" class="fa fa-search"> View</a></td>
+                <td><a href="del.php?apptrash='<?php echo $row["Loan_id"]; ?>'" class="fa fa-trash-o text-danger"> Del</a></td>
 
             </tr>
             <?php
@@ -71,13 +91,16 @@ $username=$_SESSION['logname'];
         </tbody>
         <tfoot>
         <tr class="alert-warning">
-            <th>Loan Code</th>
-            <th>Loan Type</th>
-            <th>Email</th>
-            <th>Amount</th>
-            <th>Application Date</th>
-            <th>Approval Date</th>
-            <th>Send Form</th>
+            <th>LOAN CODE</th>
+            <th width="15%">LOAN TYPE</th>
+            <th>EMAIL</th>
+            <th>AMOUNT</th>
+            <th width="15%">APPLIED ON</th>
+            <th width="15%">APPROVED ON</th>
+            <th>FINISH</th>
+            <th>PREVIEW</th>
+            <th>TRASH</th>
+
 
         </tr>
     </table>
